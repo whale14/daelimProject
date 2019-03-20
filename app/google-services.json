@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "47137406187",
+    "firebase_url": "https://festivalproject-adc50.firebaseio.com",
+    "project_id": "festivalproject-adc50",
+    "storage_bucket": "festivalproject-adc50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47137406187:android:4f89b7ad4a6cd04c",
+        "android_client_info": {
+          "package_name": "com.androidproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47137406187-md9feoriugk0crap56dov3ip32d1u8n2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx2f-R9_xW4fgeqX0F0zTFfiqtjJJGjBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
