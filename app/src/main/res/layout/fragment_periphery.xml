@@ -6,9 +6,10 @@
     tools:context=".PeripheryFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <fragment
+        android:id="@+id/fragment_nm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="my Location" />
+        android:name="com.naver.maps.map.MapFragment"/>
 
 </FrameLayout>
