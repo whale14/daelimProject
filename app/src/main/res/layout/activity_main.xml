@@ -23,6 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tabBackground="@android:color/white"
-        app:tabSelectedTextColor="#0000ff"
-        app:tabTextColor="#ff0000"></android.support.design.widget.TabLayout>
+        app:tabSelectedTextColor="#ff000000"
+        app:tabTextColor="#5f5f5f"></android.support.design.widget.TabLayout>
 </android.support.constraint.ConstraintLayout>

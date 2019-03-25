@@ -45,6 +45,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return null;
+        ArrayList<String> mTitleData = new ArrayList<>();
+        mTitleData.add("홈");
+        mTitleData.add("지역");
+        mTitleData.add("내주변");
+        mTitleData.add("마이페이지");
+        return mTitleData.get(position);
     }
 }

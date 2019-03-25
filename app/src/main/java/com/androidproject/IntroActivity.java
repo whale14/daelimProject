@@ -17,8 +17,9 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
         }, 2000);
-        finish();
+
     }
 }

@@ -1,31 +1,35 @@
 package com.androidproject;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    @Override
+    public PackageManager getPackageManager() {
+        return super.getPackageManager();
+    }
+
+
     private FirebaseFirestore db;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
