@@ -1,17 +1,11 @@
 package com.androidproject;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
 
 import java.util.ArrayList;
 
@@ -24,7 +18,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         mData = new ArrayList<>();
 
         mData.add(new HomeFragment());
-        mData.add(new PeripheryFragment());
+        mData.add(new ReviewFragment());
         mData.add(new MyPageFragment());
     }
 

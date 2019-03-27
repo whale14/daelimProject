@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,18 +32,23 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootview = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         MainActivity activity = (MainActivity) getActivity();
 
-        setHasOptionsMenu(true);
 
-        Toolbar mToolbar = rootview.findViewById(R.id.toolbar_home);
+
+        Toolbar mToolbar_home = rootView.findViewById(R.id.toolbar_home);
         assert activity != null;
-        activity.setSupportActionBar(mToolbar);
+        activity.setSupportActionBar(mToolbar_home);
+        Objects.requireNonNull(activity.getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black);
 
-        RecyclerView recyclerView = rootview.findViewById(R.id.recycler_view);
+        mToolbar_home.setTitle("홈");
+        setHasOptionsMenu(true);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // Inflate the layout for this fragment
@@ -52,7 +58,7 @@ public class HomeFragment extends Fragment {
         }
         MyRecyclerAdapter adapter = new MyRecyclerAdapter(feedList);
         recyclerView.setAdapter(adapter);
-        return  rootview;
+        return  rootView;
 //        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -66,11 +72,29 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_home, menu);
+        MenuItem searchItem = menu.findItem(R.id.home_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d("search_submit", s);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d("search_text_change", s);
+                return true;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+                Log.d("menu", "ok");
+        }
         return super.onOptionsItemSelected(item);
     }
 }
