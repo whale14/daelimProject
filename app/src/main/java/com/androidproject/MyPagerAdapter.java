@@ -24,7 +24,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         mData = new ArrayList<>();
 
         mData.add(new HomeFragment());
-        mData.add(new LocationFragment());
         mData.add(new PeripheryFragment());
         mData.add(new MyPageFragment());
     }
@@ -47,8 +46,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         ArrayList<String> mTitleData = new ArrayList<>();
         mTitleData.add("홈");
-        mTitleData.add("지역");
-        mTitleData.add("내주변");
+        mTitleData.add("리뷰");
         mTitleData.add("마이페이지");
         return mTitleData.get(position);
     }

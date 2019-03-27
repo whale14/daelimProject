@@ -53,22 +53,18 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home);
-                    Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_location);
-                    Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_my_location);
-                    Objects.requireNonNull(tabLayout.getTabAt(3)).setIcon(R.drawable.ic_person);
+                    Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review);
+                    Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_person);
 
                     switch (i) {
                         case 0 :
                             Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home_black);
                             break;
                         case 1 :
-                            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_location_black);
+                            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review_black);
                             break;
                         case 2 :
-                            Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_my_location_black);
-                            break;
-                        case 3 :
-                            Objects.requireNonNull(tabLayout.getTabAt(3)).setIcon(R.drawable.ic_person_black);
+                            Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_person_black);
                             break;
                     }
                 }
@@ -84,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home_black);
-            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_location);
-            Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_my_location);
-            Objects.requireNonNull(tabLayout.getTabAt(3)).setIcon(R.drawable.ic_person);
+            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review);
+            Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_person);
         }
     }
 
