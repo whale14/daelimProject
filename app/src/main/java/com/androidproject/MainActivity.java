@@ -1,20 +1,18 @@
 package com.androidproject;
 
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,13 +26,20 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private Toolbar toolbar_main;
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar_main = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar_main);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black);
 
         viewPager = findViewById(R.id.pager);
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -85,4 +90,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }
