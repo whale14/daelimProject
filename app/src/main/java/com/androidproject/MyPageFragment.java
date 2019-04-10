@@ -25,8 +25,9 @@ public class MyPageFragment extends Fragment {
     TextView selectView;
     CalendarView calendar;
 
-    //private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance(); // >> 아직 firebase 협업 전이라 ...
-    //private DatabaseReference databaseReference = firebaseDatabase.getReference(); // https://superwony.tistory.com/10 보면서 만들어보는중
+    TextView select_listView;
+
+    String test1;
 
 
 
@@ -42,12 +43,14 @@ public class MyPageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_my_page, container, false);
 
         selectView = rootView.findViewById(R.id.selectView);
-
+        select_listView = rootView.findViewById(R.id.select_list_View);
         //CalendarView 인스턴스 만들기
 
         CalendarView calendar = rootView.findViewById(R.id.calendar);
 
         selectView.setText("");
+
+        select_listView.setText("");
 
         //리스너 등록
 
@@ -68,6 +71,9 @@ public class MyPageFragment extends Fragment {
 
                         +dayOfMonth, Toast.LENGTH_LONG).show(); */
                 selectView.setText(""+year+"/"+(month+1)+"/" +dayOfMonth);
+                select_listView.setText("test");
+                // https://github.com/yoondowon/FirebaseConnection/blob/master/app/src/main/java/com/example/user/firebaseconnection/MainActivity.java
+                // 여기까지함!
 
             }
 
