@@ -25,6 +25,11 @@ public class MyPageFragment extends Fragment {
     TextView selectView;
     CalendarView calendar;
 
+    //private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance(); // >> 아직 firebase 협업 전이라 ...
+    //private DatabaseReference databaseReference = firebaseDatabase.getReference(); // https://superwony.tistory.com/10 보면서 만들어보는중
+
+
+
     public MyPageFragment() {
         // Required empty public constructor
     }
