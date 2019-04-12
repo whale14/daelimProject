@@ -1,20 +1,31 @@
 package com.androidproject;
 
 
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Objects;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -27,13 +38,16 @@ public class MyPageFragment extends Fragment {
 
     TextView select_listView;
 
-    String test1;
+
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
     public MyPageFragment() {
         // Required empty public constructor
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -51,6 +65,43 @@ public class MyPageFragment extends Fragment {
         selectView.setText("");
 
         select_listView.setText("");
+
+
+        Map<String, Object> test = new HashMap<>();
+        test.put("String", "Object");
+        test.put("test2", "test");
+
+// Add a new document with a generated ID
+        db.collection("test")
+                .add(test)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+
+        db.collection("test")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    //@Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
 
         //리스너 등록
 
@@ -71,9 +122,10 @@ public class MyPageFragment extends Fragment {
 
                         +dayOfMonth, Toast.LENGTH_LONG).show(); */
                 selectView.setText(""+year+"/"+(month+1)+"/" +dayOfMonth);
-                select_listView.setText("test");
-                // https://github.com/yoondowon/FirebaseConnection/blob/master/app/src/main/java/com/example/user/firebaseconnection/MainActivity.java
-                // 여기까지함!
+
+                select_listView.setText(db.collection("test").toString());
+
+                // 아아아아악 이상한 쓰레기 값이 온다아아악!!!!!!!!!!!!!!!
 
             }
 
@@ -82,6 +134,7 @@ public class MyPageFragment extends Fragment {
 
         return rootView;
     }
+
 
 
 }
