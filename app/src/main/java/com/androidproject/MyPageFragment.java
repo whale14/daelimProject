@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -103,6 +104,27 @@ public class MyPageFragment extends Fragment {
                 });
 
 
+        DocumentReference docRef = db.collection("test").document("SF");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        select_listView.setText("성공");
+                    } else {
+                        Log.d(TAG, "No such document");
+                        select_listView.setText("실패");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+
         //리스너 등록
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -123,9 +145,8 @@ public class MyPageFragment extends Fragment {
                         +dayOfMonth, Toast.LENGTH_LONG).show(); */
                 selectView.setText(""+year+"/"+(month+1)+"/" +dayOfMonth);
 
-                select_listView.setText(db.collection("test").toString());
+                //select_listView.setText(db.collection("test").toString());
 
-                // 아아아아악 이상한 쓰레기 값이 온다아아악!!!!!!!!!!!!!!!
 
             }
 

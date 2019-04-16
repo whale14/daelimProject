@@ -43,6 +43,8 @@
             android:text="SampleTest"
             android:textSize="30sp" />
 
+
+
         <TextView
             android:id="@+id/select_list_View"
             android:layout_width="match_parent"
