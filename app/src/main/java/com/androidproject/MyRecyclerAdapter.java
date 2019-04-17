@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.androidproject.apidata.Example;
+import com.androidproject.apidata.Result;
+
 import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
 
-    private final List<CardItem> mFeedList;
+    private List<Result> mFeedList;
 
-    public MyRecyclerAdapter(List<CardItem> feedList) {
+    public MyRecyclerAdapter(List<Result> feedList) {
         mFeedList = feedList;
     }
 
@@ -27,10 +30,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        CardItem item = mFeedList.get(i);
-        viewHolder.title.setText(item.getTitle());
-        viewHolder.contents.setText(item.getContents());
+        Result item = mFeedList.get(i);
 
+        viewHolder.title.setText(item.getTitle());
+        viewHolder.contents.setText(item.getDescription());
+
+    }
+    public void setItems(List<Result> items) {
+        mFeedList = items;
     }
 
     @Override
