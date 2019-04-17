@@ -18,8 +18,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
     </android.support.v7.widget.Toolbar>
+    <!--스와이프 가능한 페이저-->
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@id/tab"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/toolbar_main" />-->
 
-    <android.support.v4.view.ViewPager
+    <!--스와이프 불가능 페이저-->
+    <com.androidproject.CustomPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
