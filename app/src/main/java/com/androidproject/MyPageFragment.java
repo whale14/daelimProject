@@ -39,7 +39,13 @@ public class MyPageFragment extends Fragment {
 
     TextView select_listView;
 
+    DocumentReference docRef;
 
+
+    // 테스트용
+    int year1;
+    int month1;
+    int date1;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -68,9 +74,11 @@ public class MyPageFragment extends Fragment {
         select_listView.setText("");
 
 
+        // Test용 값 저장
         Map<String, Object> test = new HashMap<>();
         test.put("String", "Object");
         test.put("test2", "test");
+        test.put("name", "테스트할때마다 값 저장");
 
 // Add a new document with a generated ID
         db.collection("test")
@@ -104,24 +112,38 @@ public class MyPageFragment extends Fragment {
                 });
 
 
-        DocumentReference docRef = db.collection("test").document("SF");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("test").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
+                    for (DocumentSnapshot document: task.getResult()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        select_listView.setText("성공");
-                    } else {
-                        Log.d(TAG, "No such document");
-                        select_listView.setText("실패");
                     }
+                    select_listView.setText("성공");
+
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
+                    select_listView.setText("실패");
                 }
             }
         });
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                        select_listView.setText("성공");
+//                    } else {
+//                        Log.d(TAG, "No such document");
+//                        select_listView.setText("실패");
+//                    }
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
 
 
 
@@ -145,12 +167,37 @@ public class MyPageFragment extends Fragment {
                         +dayOfMonth, Toast.LENGTH_LONG).show(); */
                 selectView.setText(""+year+"/"+(month+1)+"/" +dayOfMonth);
 
+                year1 = year;
+                month1 = month+1;
+                date1 = dayOfMonth;
+
+                // 해당 날짜를 눌렀을 때 정보 불러오기 >> 테스트중..
+//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                                select_listView.setText("성공" +" "+year1+"/"+month1+"/" + date1 );
+//                            } else {
+//                                Log.d(TAG, "No such document");
+//                                select_listView.setText("실패"+" "+year1+"/"+month1+"/" + date1 );
+//                            }
+//                        } else {
+//                            Log.d(TAG, "get failed with ", task.getException());
+//                        }
+//                    }
+//                });
+
                 //select_listView.setText(db.collection("test").toString());
 
 
             }
 
         });
+
+
 
 
         return rootView;
