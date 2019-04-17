@@ -6,4 +6,8 @@
     <string name="menu_main_title">검색</string>
     <string name="menu_main_popular">인기순</string>
     <string name="menu_main_recently">최신순</string>
+
+    //facebook 로그인
+    <string name="facebook_application_id" translatable="false">380437019444081</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb380437019444081</string>
 </resources>
