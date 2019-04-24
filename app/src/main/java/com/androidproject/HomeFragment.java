@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
 
         RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
         // Inflate the layout for this fragment
         List<Result> feedList = new ArrayList<>();

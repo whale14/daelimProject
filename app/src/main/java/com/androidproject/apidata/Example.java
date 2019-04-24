@@ -10,7 +10,7 @@ public class Example {
     private int count;
     private boolean overflow;
     private String next;
-    private Object previous;
+    private String previous;
     private List<Result> results = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -38,11 +38,11 @@ public class Example {
         this.next = next;
     }
 
-    public Object getPrevious() {
+    public String getPrevious() {
         return previous;
     }
 
-    public void setPrevious(Object previous) {
+    public void setPrevious(String previous) {
         this.previous = previous;
     }
 

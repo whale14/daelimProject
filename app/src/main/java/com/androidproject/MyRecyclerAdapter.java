@@ -33,7 +33,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         Result item = mFeedList.get(i);
 
         viewHolder.title.setText(item.getTitle());
-        viewHolder.contents.setText(item.getDescription());
 
     }
     public void setItems(List<Result> items) {
@@ -51,7 +50,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title_text);
-            contents = itemView.findViewById(R.id.contents_text);
         }
     }
 }
