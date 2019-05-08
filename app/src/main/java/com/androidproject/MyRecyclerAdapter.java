@@ -98,7 +98,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
                 // https://console.firebase.google.com/project/festivalproject-adc50/database/firestore/data~2Ftest1~2FO3IxRgkNiVBBFvmDJGpW
                 // 여기서 데이터베이스에 데이터 들어가는거 실시간 확인
-                
+
                 db.collection("test1")
                         .add(test1)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
