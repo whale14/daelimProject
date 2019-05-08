@@ -122,45 +122,45 @@ public class MyPageFragment extends Fragment {
 
         //리스너 등록
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-
-
-            @Override
-
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-
-                                            int dayOfMonth) {
-
-                // TODO Auto-generated method stub
-
-                /*
-                Toast.makeText(MyPageFragment.this, ""+year+"/"+(month+1)+"/"
-
-                        +dayOfMonth, Toast.LENGTH_LONG).show(); */
-                selectView.setText(""+year+"/"+(month+1)+"/" +dayOfMonth);
-
-
-                db.collection("test").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document: task.getResult()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            }
-                            select_listView.setText("성공");
-
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                            select_listView.setText("실패");
-                        }
-                    }
-                });
-
-
-            }
-
-        });
+//        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//
+//
+//
+//            @Override
+//
+//            public void onSelectedDayChange(CalendarView view, int year, int month,
+//
+//                                            int dayOfMonth) {
+//
+//                // TODO Auto-generated method stub
+//
+//                /*
+//                Toast.makeText(MyPageFragment.this, ""+year+"/"+(month+1)+"/"
+//
+//                        +dayOfMonth, Toast.LENGTH_LONG).show(); */
+//                selectView.setText(""+year+"/"+(month+1)+"/" +dayOfMonth);
+//
+//
+//                db.collection("test").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (DocumentSnapshot document: task.getResult()) {
+//                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                            }
+//                            select_listView.setText("성공");
+//
+//                        } else {
+//                            Log.d(TAG, "get failed with ", task.getException());
+//                            select_listView.setText("실패");
+//                        }
+//                    }
+//                });
+//
+//
+//            }
+//
+//        });
 
 
         return rootView;
