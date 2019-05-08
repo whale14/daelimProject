@@ -22,7 +22,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +41,7 @@ import static android.support.constraint.Constraints.TAG;
 public class MyPageFragment extends Fragment {
 
     TextView selectView;
-    CalendarView calendar;
+    MaterialCalendarView materialCalendarView;
 
     TextView select_listView;
 
@@ -58,9 +64,15 @@ public class MyPageFragment extends Fragment {
 
         selectView = rootView.findViewById(R.id.selectView);
         select_listView = rootView.findViewById(R.id.select_list_View);
-        //CalendarView 인스턴스 만들기
 
-        CalendarView calendar = rootView.findViewById(R.id.calendar);
+        //CalendarView 인스턴스 만들기
+        materialCalendarView = rootView.findViewById(R.id.calendar);
+
+        try {
+            materialCalendarView.addDecorator(new EventDecorator());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         selectView.setText("");
 
