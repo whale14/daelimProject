@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".LoginActivity">
-        </activity>
+        <activity android:name=".MoreInfomationActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

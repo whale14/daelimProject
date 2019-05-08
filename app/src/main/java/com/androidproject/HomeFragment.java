@@ -75,15 +75,13 @@ public class HomeFragment extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
-        // Inflate the layout for this fragment
         List<Result> feedList = new ArrayList<>();
-//        for (int i = 0; i <10; i++) {
-//            feedList.add(new CardItem(i + "번째 제목", i + "번째 설명"));
-//        }
         final MyRecyclerAdapter adapter = new MyRecyclerAdapter(feedList);
         recyclerView.setAdapter(adapter);
 
-        service.listPosts("KR").enqueue(new Callback<Example>() {
+
+
+        service.listPosts("concerts,performing-arts,festivals").enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
                 List<Result> posts = response.body().getResults();
