@@ -25,6 +25,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,11 +101,22 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
                 CollectionReference users = db.collection(user.getUid());
 
+                String date = item.getStart();
+                Date parseDate = null;
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    parseDate = format.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                DateFormat stringFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String startDate = stringFormat.format(parseDate);
+
                 // Test용 값 저장
                 Map<String, Object> userMap = new HashMap<>();
                 userMap.put("title", item.getTitle());
                 userMap.put("country", item.getCountry());
-                userMap.put("startDate", item.getStart());
+                userMap.put("startDate", parseDate);
                 userMap.put("endDate", item.getEnd());
                 users.document(item.getId()).set(userMap);
                 Log.d(TAG, "uId : " + user.getUid());
