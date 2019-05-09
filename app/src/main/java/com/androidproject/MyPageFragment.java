@@ -78,7 +78,6 @@ public class MyPageFragment extends Fragment {
 
         select_listView.setText("");
 
-
         // Test용 값 저장
 //        Map<String, Object> test = new HashMap<>();
 //        test.put("ID", "test1");

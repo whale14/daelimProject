@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -25,9 +28,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.support.constraint.Constraints.TAG;
 
+@SuppressWarnings("ALL")
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
 
     private List<Result> mFeedList;
@@ -88,34 +93,23 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             @Override
             public void onClick(View view) {
                 //리사이클러뷰 like 클릭 이벤트 리스너
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                CollectionReference users = db.collection(user.getUid());
 
                 // Test용 값 저장
-                Map<String, Object> test1 = new HashMap<>();
-                test1.put("title", item.getTitle());
-                test1.put("contry", item.getCountry());
-                test1.put("start", item.getStart());
-                test1.put("end", item.getEnd());
+                Map<String, Object> userMap = new HashMap<>();
+                userMap.put("title", item.getTitle());
+                userMap.put("country", item.getCountry());
+                userMap.put("startDate", item.getStart());
+                userMap.put("endDate", item.getEnd());
+                users.document(item.getId()).set(userMap);
+                Log.d(TAG, "uId : " + user.getUid());
+                Log.d(TAG, "itemId : " + item.getId());
 
                 // https://console.firebase.google.com/project/festivalproject-adc50/database/firestore/data~2Ftest1~2FO3IxRgkNiVBBFvmDJGpW
                 // 여기서 데이터베이스에 데이터 들어가는거 실시간 확인
-
-                db.collection("test1")
-                        .add(test1)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-
-
-
+                //https://firebase.google.com/docs/firestore/query-data/get-data?hl=ko 파이어스토어 공식문서
             }
         });
 
