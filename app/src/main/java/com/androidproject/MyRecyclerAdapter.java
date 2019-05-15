@@ -12,17 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidproject.apidata.Item;
-import com.androidproject.apidata.Result;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,9 +107,19 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 userMap.put("addr", item.getAddr1());
                 userMap.put("tel", item.getTel());
 
+                FireStoreModel fireStoreModel = new FireStoreModel(
+                        item.getTitle(),
+                        item.getFirstimage(),
+                        item.getFirstimage2(),
+                        item.getAddr1(),
+                        item.getTel(),
+                        item.getEventstartdate(),
+                        item.getEventenddate());
+
                 int contentId = item.getContentid();
                 String contentIdToString = Integer.toString(contentId);
-                users.document(contentIdToString).set(userMap);
+                db.collection(user.getUid()).document(contentIdToString).set(fireStoreModel);
+//                users.document(contentIdToString).set(userMap);
                 Log.d(TAG, "uId : " + user.getUid());
                 Log.d(TAG, "itemId : " + item.getContentid());
 

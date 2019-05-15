@@ -27,6 +27,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -80,17 +81,11 @@ public class MyPageFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        final DocumentReference documentReference = db.collection(user.getUid()).document();
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        db.collection(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.d(TAG, "onEvent: ", e);
-                    return;
-                }
-                if (documentSnapshot != null && documentSnapshot.exists()) {
-                    Log.d(TAG, "onEvent: " + documentSnapshot.getData());
-                } else Log.d(TAG, "onEvent: null");
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<FireStoreModel> modelList = Objects.requireNonNull(task.getResult()).toObjects(FireStoreModel.class);
+                Log.d(TAG, "onComplete: " + modelList.get(0).getTitle());
             }
         });
         // Test용 값 저장
