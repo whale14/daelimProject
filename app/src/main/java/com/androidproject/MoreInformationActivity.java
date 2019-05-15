@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class MoreInfomationActivity extends AppCompatActivity {
+public class MoreInformationActivity extends AppCompatActivity {
 
     TextView title, description, start, end;
     @Override

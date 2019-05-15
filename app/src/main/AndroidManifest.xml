@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MoreInfomationActivity"></activity>
+        <activity android:name=".MoreInformationActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
 
         <meta-data

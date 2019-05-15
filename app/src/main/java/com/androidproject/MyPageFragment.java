@@ -10,27 +10,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -48,7 +46,7 @@ public class MyPageFragment extends Fragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
+    private List<DocumentSnapshot> list;
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -78,6 +76,23 @@ public class MyPageFragment extends Fragment {
 
         select_listView.setText("");
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        list = new ArrayList<>();
+
+        final DocumentReference documentReference = db.collection(user.getUid()).document();
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.d(TAG, "onEvent: ", e);
+                    return;
+                }
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    Log.d(TAG, "onEvent: " + documentSnapshot.getData());
+                } else Log.d(TAG, "onEvent: null");
+            }
+        });
         // Test용 값 저장
 //        Map<String, Object> test = new HashMap<>();
 //        test.put("ID", "test1");

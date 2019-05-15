@@ -2,6 +2,7 @@ package com.androidproject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
@@ -28,6 +29,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -65,12 +69,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //로그아웃시 로그인상태를 초기화하기 위함
         sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
         editor = sp.edit();
 
+        //파이어베이스 인증 로그인정보
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-
+        //툴바(상단바)
         toolbar_main = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar_main);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -87,24 +93,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView=(NavigationView)findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //드라워 메뉴 이벤트리스너 구현을 위한 뷰 정의
         View navHeaderView = navigationView.getHeaderView(0);
 
         userPhoto = navHeaderView.findViewById(R.id.image_user);
         userName = navHeaderView.findViewById(R.id.text_user_name);
         userEmail = navHeaderView.findViewById(R.id.text_user_email);
-        logout = navHeaderView.findViewById(R.id.image_logout);
-
         userName.setText(user.getDisplayName());
         userEmail.setText(user.getEmail());
 
         userPhoto.setImageDrawable(getDrawable(R.drawable.ic_person));
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editor.clear();
-            }
-        });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -141,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         tabLayout.setupWithViewPager(viewPager);
 
+        //탭레이아웃 아이콘적용
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home_black);
             Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review);
@@ -173,6 +172,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu2:
                 Snackbar.make(toolbar_main,"2번",Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_logout:
+                editor.clear();
+                editor.commit();
+                // 파이어베이스 인증 로그아웃
+                AuthUI.getInstance()
+                        .signOut(this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                            }
+                        });
+
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
                 break;
         }
         drawerLayout.closeDrawers();

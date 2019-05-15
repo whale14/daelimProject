@@ -5,7 +5,19 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface KoreanJsonService {
-    @GET("/v1/events")
-    Call<Example> listPosts(@Query("category")String category);
-//    Call<Example> listPosts(@Query("q") String query);
+    @GET("/openapi/service/rest/KorService/searchFestival?ServiceKey=27eTyCleBTtFCRPd1ct0WRpGIs6oJ8ah%2BYcibDG4E8WcoGP6T%2BjYaAr9deXHQwxEwTuY4wUaIq3LN8OdaXslwQ%3D%3D")
+    Call<Example> listPosts(@Query("eventStartDate") String startDate,
+                            @Query("eventEndDate") String endDate,
+                            @Query("areaCode") String areaCode,
+                            @Query("sigunguCode") String sigunguCode,
+                            @Query("cat1") String cat1,
+                            @Query("cat2") String cat2,
+                            @Query("cat3") String cat3,
+                            @Query("listYN") String listYN,
+                            @Query("MobileOS") String mobileOS,
+                            @Query("MobileApp") String mobileApp,
+                            @Query("arrange") String arrange,
+                            @Query("numOfRows") String numOfRows,
+                            @Query("pageNo") String pageNo,
+                            @Query("_type") String type);
 }

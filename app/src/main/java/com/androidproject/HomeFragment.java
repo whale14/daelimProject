@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.androidproject.apidata.Example;
+import com.androidproject.apidata.Item;
 import com.androidproject.apidata.KoreanJsonService;
 import com.androidproject.apidata.Result;
 
@@ -55,17 +56,17 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
         // API 데이터 받아오는 부분
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request request = chain.request().newBuilder().addHeader("Authorization", "Bearer " + "BfmZIhV1ms5cdBDBCzU8NxhYmU9UEn").build();
-                return chain.proceed(request);
-            }
-        }).build();
+//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+//            @Override
+//            public okhttp3.Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request().newBuilder().addHeader("Authorization", "Bearer " + "BfmZIhV1ms5cdBDBCzU8NxhYmU9UEn").build();
+//                return chain.proceed(request);
+//            }
+//        }).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.predicthq.com")
-                .client(client)
+                .baseUrl("http://api.visitkorea.or.kr")
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -75,16 +76,29 @@ public class HomeFragment extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
-        List<Result> feedList = new ArrayList<>();
+        List<Item> feedList = new ArrayList<>();
         final MyRecyclerAdapter adapter = new MyRecyclerAdapter(feedList);
         recyclerView.setAdapter(adapter);
 
 
 
-        service.listPosts("concerts,performing-arts,festivals").enqueue(new Callback<Example>() {
+        service.listPosts("20190513",
+                "20190613",
+                "",
+                "",
+                "A02",
+                "A0207",
+                "",
+                "Y",
+                "ETC",
+                "TourAPI3.0_Guide",
+                "A",
+                "12",
+                "1",
+                "json").enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
-                List<Result> posts = response.body().getResults();
+                List<Item> posts = response.body().getResponse().getBody().getItems().getItem();
 
                 Log.d(TAG, "onResponse: " + posts);
 
