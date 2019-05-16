@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class MyPageFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private List<DocumentSnapshot> list;
+    private ArrayList dateArray;
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -67,11 +69,7 @@ public class MyPageFragment extends Fragment {
         //CalendarView 인스턴스 만들기
         materialCalendarView = rootView.findViewById(R.id.calendar);
 
-        try {
-            materialCalendarView.addDecorator(new EventDecorator());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
 
         selectView.setText("");
 
@@ -80,12 +78,21 @@ public class MyPageFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         list = new ArrayList<>();
+        dateArray = new ArrayList();
 
         db.collection(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<FireStoreModel> modelList = Objects.requireNonNull(task.getResult()).toObjects(FireStoreModel.class);
-                Log.d(TAG, "onComplete: " + modelList.get(0).getTitle());
+                for (int i =0; i<modelList.size(); i++) {
+                    dateArray.add(modelList.get(i).getStart());
+                }
+                Log.d(TAG, "onComplete: " + dateArray.toString());
+                try {
+                    materialCalendarView.addDecorator(new EventDecorator(dateArray));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
         // Test용 값 저장

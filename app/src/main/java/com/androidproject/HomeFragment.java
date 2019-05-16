@@ -68,8 +68,6 @@ public class HomeFragment extends Fragment {
         final MyRecyclerAdapter adapter = new MyRecyclerAdapter(feedList);
         recyclerView.setAdapter(adapter);
 
-
-
         service.listPosts("20190513",
                 "20190613",
                 "",
