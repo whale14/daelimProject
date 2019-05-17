@@ -1,6 +1,7 @@
 package com.androidproject;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.androidproject.apidata.Item;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -49,7 +51,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         final Item item = mFeedList.get(i);
 
         viewHolder.title.setText(item.getTitle());
-        Glide.with(viewHolder.itemView).load(item.getFirstimage()).into(viewHolder.thumbnail);
+        if (item.getFirstimage() != null) {
+            Glide.with(viewHolder.itemView).load(item.getFirstimage()).into(viewHolder.thumbnail);
+            viewHolder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
 
 
         viewHolder.more.setOnClickListener(new View.OnClickListener() {
