@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.androidproject.apidata.Item;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -93,64 +95,44 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 if (ids.contains(contentIdString)) {
                     ids.remove(contentIdString);
                     Toast.makeText(view.getContext(), "즐겨찾기에서 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                    db.collection(user.getUid()).document(contentIdString)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error deleting document", e);
+                                }
+                            });
                 } else {
                     ids.add(contentIdString);
                     Toast.makeText(view.getContext(), "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
+                    FireStoreModel fireStoreModel = new FireStoreModel(
+                            item.getTitle(),
+                            item.getFirstimage(),
+                            item.getFirstimage2(),
+                            item.getAddr1(),
+                            item.getTel(),
+                            item.getEventstartdate(),
+                            item.getEventenddate());
+
+                    int contentId = item.getContentid();
+                    String contentIdToString = Integer.toString(contentId);
+                    db.collection(user.getUid()).document(contentIdToString).set(fireStoreModel);
+//                users.document(contentIdToString).set(userMap);
+                    Log.d(TAG, "uId : " + user.getUid());
+                    Log.d(TAG, "itemId : " + item.getContentid());
                 }
                 editor.putStringSet("idList", ids);
                 editor.apply();
                 Log.d(TAG, "onClick: " + ids.toString());
 
                 CollectionReference users = db.collection(user.getUid());
-
-                //날짜 데이터 형식 변환
-//                String dateStart = item.getStart();
-//                Date parseStart = null;
-//                DateFormat formatStart = new SimpleDateFormat("yyyy-MM-dd");
-//                try {
-//                    parseStart = formatStart.parse(dateStart);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//                DateFormat startFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                String startDate = startFormat.format(parseStart);
-//
-//                String dateEnd = item.getEnd();
-//                Date parseEnd = null;
-//                DateFormat formatEnd = new SimpleDateFormat("yyyy-MM-dd");
-//                try {
-//                    parseEnd = formatEnd.parse(dateEnd);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//                DateFormat endFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                String endDate = endFormat.format(parseEnd);
-
-                // Test용 값 저장
-                Map<String, Object> userMap = new HashMap<>();
-                userMap.put("title", item.getTitle());
-                userMap.put("img1", item.getFirstimage());
-                userMap.put("img2", item.getFirstimage2());
-                userMap.put("start", item.getEventstartdate());
-                userMap.put("end", item.getEventenddate());
-                userMap.put("addr", item.getAddr1());
-                userMap.put("tel", item.getTel());
-
-                FireStoreModel fireStoreModel = new FireStoreModel(
-                        item.getTitle(),
-                        item.getFirstimage(),
-                        item.getFirstimage2(),
-                        item.getAddr1(),
-                        item.getTel(),
-                        item.getEventstartdate(),
-                        item.getEventenddate());
-
-                int contentId = item.getContentid();
-                String contentIdToString = Integer.toString(contentId);
-                db.collection(user.getUid()).document(contentIdToString).set(fireStoreModel);
-//                users.document(contentIdToString).set(userMap);
-                Log.d(TAG, "uId : " + user.getUid());
-                Log.d(TAG, "itemId : " + item.getContentid());
 
                 // https://console.firebase.google.com/project/festivalproject-adc50/database/firestore/data~2Ftest1~2FO3IxRgkNiVBBFvmDJGpW
                 // 여기서 데이터베이스에 데이터 들어가는거 실시간 확인
