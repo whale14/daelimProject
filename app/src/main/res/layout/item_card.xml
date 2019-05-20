@@ -49,8 +49,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
-                android:text="Like"
-                android:textColor="#0091ea"/>
+                android:text="Like" />
 
         </LinearLayout>
 

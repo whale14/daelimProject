@@ -69,8 +69,6 @@ public class MyPageFragment extends Fragment {
         //CalendarView 인스턴스 만들기
         materialCalendarView = rootView.findViewById(R.id.calendar);
 
-
-
         selectView.setText("");
 
         select_listView.setText("");

@@ -2,6 +2,7 @@ package com.androidproject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +39,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -55,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private Toolbar toolbar_main;
 
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
+    private SharedPreferences sp_login, sp_idList;
+    private SharedPreferences.Editor editor_login, editor_idList;
 
     //Navigation drawer
     private DrawerLayout drawerLayout;
@@ -70,8 +73,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         //로그아웃시 로그인상태를 초기화하기 위함
-        sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
-        editor = sp.edit();
+        sp_login = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        editor_login = sp_login.edit();
+
+        sp_idList = getSharedPreferences("idList", MODE_PRIVATE);
+        editor_idList = sp_idList.edit();
 
         //파이어베이스 인증 로그인정보
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -174,20 +180,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Snackbar.make(toolbar_main,"2번",Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.menu_logout:
-                editor.clear();
-                editor.commit();
-                // 파이어베이스 인증 로그아웃
-                AuthUI.getInstance()
-                        .signOut(this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
 
-                            }
-                        });
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("주의");
+                builder.setMessage("로그아웃시 즐겨찾기 리스트가 삭제됩니다. 그래도 진행하시겠습니까?");
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //로그인정보 초기화
+                        editor_login.clear();
+                        editor_login.commit();
+                        //id리스트 초기화
+                        editor_idList.clear();
+                        editor_idList.commit();
+                        // 파이어베이스 인증 로그아웃
+                        AuthUI.getInstance()
+                                .signOut(getApplicationContext())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
 
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                finish();
+                                    }
+                                });
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+
                 break;
         }
         drawerLayout.closeDrawers();

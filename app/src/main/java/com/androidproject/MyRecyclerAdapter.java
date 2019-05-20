@@ -1,6 +1,9 @@
 package com.androidproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,18 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidproject.apidata.Item;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -30,8 +35,12 @@ import static android.support.constraint.Constraints.TAG;
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
 
     private List<Item> mFeedList;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    Set<String> ids;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public MyRecyclerAdapter(List<Item> feedList) {
         mFeedList = feedList;
     }
@@ -42,7 +51,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_card, viewGroup, false);
 
-
+        sp = view.getContext().getSharedPreferences("idList", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        ids = sp.getStringSet("idList", new HashSet<String>());
         return new ViewHolder(view);
     }
 
@@ -50,12 +61,15 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         final Item item = mFeedList.get(i);
 
+        if (ids.contains(Integer.toString(item.getContentid()))) {
+            viewHolder.like.setTextColor(R.color.red);
+        }
+
         viewHolder.title.setText(item.getTitle());
         if (item.getFirstimage() != null) {
             Glide.with(viewHolder.itemView).load(item.getFirstimage()).into(viewHolder.thumbnail);
             viewHolder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
-
 
         viewHolder.more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +78,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 Log.d("tada", "onClick: more_button" + item.getTitle());
                 Intent intent = new Intent(view.getContext(), MoreInformationActivity.class);
                 intent.putExtra("title", item.getTitle());
-//                intent.putExtra("description", item.getDescription());
-//                intent.putExtra("start", item.getStart());
-//                intent.putExtra("end", item.getEnd());
                 view.getContext().startActivity(intent);
             }
         });
@@ -76,6 +87,19 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             public void onClick(View view) {
                 //리사이클러뷰 like 클릭 이벤트 리스너
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                ids = sp.getStringSet("idList", new HashSet<String>());
+                String contentIdString = Integer.toString(item.getContentid());
+                if (ids.contains(contentIdString)) {
+                    ids.remove(contentIdString);
+                    Toast.makeText(view.getContext(), "즐겨찾기에서 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    ids.add(contentIdString);
+                    Toast.makeText(view.getContext(), "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                editor.putStringSet("idList", ids);
+                editor.apply();
+                Log.d(TAG, "onClick: " + ids.toString());
 
                 CollectionReference users = db.collection(user.getUid());
 
@@ -135,6 +159,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         });
 
     }
+
     public void setItems(List<Item> items) {
         mFeedList = items;
     }
@@ -148,6 +173,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         TextView title, contents;
         ImageView thumbnail;
         Button more, like;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
