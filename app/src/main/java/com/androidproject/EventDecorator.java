@@ -14,31 +14,28 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 public class EventDecorator implements DayViewDecorator {
 
-    private final Calendar calendar = Calendar.getInstance();
     private final DotSpan highlightDrawable;
-    private CalendarDay dates;
+    private final HashSet<CalendarDay> dates;
 
-    public EventDecorator(ArrayList dateArray) throws ParseException {
+    public EventDecorator(Collection<CalendarDay> dateArray) throws ParseException {
         highlightDrawable = new DotSpan(5, R.color.fui_bgGoogle);
-        String date = "2019-05-10T10:10:10Z";
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parseDate = format.parse(date);
+//        String date = "2019-05-10T10:10:10Z";
+//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        Date parseDate = format.parse(date);
 
-        for (int i=0; i<dateArray.size(); i++) {
-            long dateLong = (long) dateArray.get(i);
-            Date date1 = new Date(dateLong*1000);
-            dates = CalendarDay.from(date1);
-        }
+        dates = new HashSet<>(dateArray);
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        day.copyTo(calendar);
-        return dates != null && day.equals(dates);
+        return dates.contains(day);
     }
 
     @Override
