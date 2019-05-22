@@ -60,7 +60,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         final Item item = mFeedList.get(i);
 
         if (ids.contains(Integer.toString(item.getContentid()))) {
@@ -109,6 +109,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                                     Log.w(TAG, "Error deleting document", e);
                                 }
                             });
+
                 } else {
                     ids.add(contentIdString);
                     Toast.makeText(view.getContext(), "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
@@ -124,15 +125,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                     int contentId = item.getContentid();
                     String contentIdToString = Integer.toString(contentId);
                     db.collection(user.getUid()).document(contentIdToString).set(fireStoreModel);
-//                users.document(contentIdToString).set(userMap);
                     Log.d(TAG, "uId : " + user.getUid());
                     Log.d(TAG, "itemId : " + item.getContentid());
                 }
                 editor.putStringSet("idList", ids);
                 editor.apply();
+                notifyDataSetChanged();
                 Log.d(TAG, "onClick: " + ids.toString());
 
-                CollectionReference users = db.collection(user.getUid());
 
                 // https://console.firebase.google.com/project/festivalproject-adc50/database/firestore/data~2Ftest1~2FO3IxRgkNiVBBFvmDJGpW
                 // 여기서 데이터베이스에 데이터 들어가는거 실시간 확인
