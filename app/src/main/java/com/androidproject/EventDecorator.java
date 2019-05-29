@@ -26,7 +26,7 @@ public class EventDecorator implements DayViewDecorator {
     private final HashSet<CalendarDay> dates;
 
     public EventDecorator(Collection<CalendarDay> dateArray) {
-        highlightDrawable = new DotSpan(5, R.color.colorAccent);
+        highlightDrawable = new DotSpan(5, Color.RED);
 //        String date = "2019-05-10T10:10:10Z";
 //        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        Date parseDate = format.parse(date);
