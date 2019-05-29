@@ -1,8 +1,11 @@
 package com.androidproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -32,16 +35,16 @@ import java.util.Map;
 import java.util.Set;
 
 import static android.support.constraint.Constraints.TAG;
+import static android.view.View.generateViewId;
 
-@SuppressWarnings("ALL")
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
 
     private List<Item> mFeedList;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    Set<String> ids;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Set<String> titles;
 
     public MyRecyclerAdapter(List<Item> feedList) {
         mFeedList = feedList;
@@ -53,9 +56,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_card, viewGroup, false);
 
-        sp = view.getContext().getSharedPreferences("idList", Context.MODE_PRIVATE);
+        sp = view.getContext().getSharedPreferences("titleList", Context.MODE_PRIVATE);
         editor = sp.edit();
-        ids = sp.getStringSet("idList", new HashSet<String>());
+        titles = sp.getStringSet("titleList", new HashSet<String>());
         return new ViewHolder(view);
     }
 
@@ -63,8 +66,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         final Item item = mFeedList.get(i);
 
-        if (ids.contains(Integer.toString(item.getContentid()))) {
-            viewHolder.like.setTextColor(R.color.red);
+        if (titles.contains(item.getTitle())) {
+            viewHolder.like.setTextColor(Color.RED);
+        } else {
+            viewHolder.like.setTextColor(Color.DKGRAY);
         }
 
         viewHolder.title.setText(item.getTitle());
@@ -90,28 +95,28 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 //리사이클러뷰 like 클릭 이벤트 리스너
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                ids = sp.getStringSet("idList", new HashSet<String>());
+                titles = sp.getStringSet("titleList", new HashSet<String>());
                 String contentIdString = Integer.toString(item.getContentid());
-                if (ids.contains(contentIdString)) {
-                    ids.remove(contentIdString);
+                String title = item.getTitle();
+                if (titles.contains(title)) {
+                    titles.remove(title);
                     Toast.makeText(view.getContext(), "즐겨찾기에서 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
                     db.collection(user.getUid()).document(contentIdString)
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                    Log.d(TAG, "onSuccess: ");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error deleting document", e);
+                                    Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
                                 }
                             });
-
                 } else {
-                    ids.add(contentIdString);
+                    titles.add(title);
                     Toast.makeText(view.getContext(), "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
                     FireStoreModel fireStoreModel = new FireStoreModel(
                             item.getTitle(),
@@ -122,24 +127,19 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                             item.getEventstartdate(),
                             item.getEventenddate());
 
-                    int contentId = item.getContentid();
-                    String contentIdToString = Integer.toString(contentId);
-                    db.collection(user.getUid()).document(contentIdToString).set(fireStoreModel);
-                    Log.d(TAG, "uId : " + user.getUid());
-                    Log.d(TAG, "itemId : " + item.getContentid());
+                    db.collection(user.getUid()).document(contentIdString).set(fireStoreModel);
                 }
-                editor.putStringSet("idList", ids);
+                editor.putStringSet("titleList", titles);
                 editor.apply();
                 notifyDataSetChanged();
-                Log.d(TAG, "onClick: " + ids.toString());
+                Log.d(TAG, "onClick: " + titles.toString());
 
 
                 // https://console.firebase.google.com/project/festivalproject-adc50/database/firestore/data~2Ftest1~2FO3IxRgkNiVBBFvmDJGpW
                 // 여기서 데이터베이스에 데이터 들어가는거 실시간 확인
-                //https://firebase.google.com/docs/firestore/query-data/get-data?hl=ko 파이어스토어 공식문서
+                // https://firebase.google.com/docs/firestore/query-data/get-data?hl=ko 파이어스토어 공식문서
             }
         });
-
     }
 
     public void setItems(List<Item> items) {

@@ -36,13 +36,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    private SharedPreferences sp_titleList;
+    private SharedPreferences.Editor editor_titleList;
 
     @Override
     public PackageManager getPackageManager() {
@@ -78,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sp_idList = getSharedPreferences("idList", MODE_PRIVATE);
         editor_idList = sp_idList.edit();
+
+        sp_titleList = getSharedPreferences("titleList", MODE_PRIVATE);
+        editor_titleList = sp_titleList.edit();
 
         //파이어베이스 인증 로그인정보
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -196,6 +205,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         //id리스트 초기화
                         editor_idList.clear();
                         editor_idList.commit();
+
+                        editor_titleList.clear();
+                        editor_titleList.apply();
+
                         // 파이어베이스 인증 로그아웃
                         AuthUI.getInstance()
                                 .signOut(getApplicationContext())

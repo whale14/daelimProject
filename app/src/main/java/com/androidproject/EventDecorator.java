@@ -1,5 +1,6 @@
 package com.androidproject;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.util.Log;
@@ -24,8 +25,8 @@ public class EventDecorator implements DayViewDecorator {
     private final DotSpan highlightDrawable;
     private final HashSet<CalendarDay> dates;
 
-    public EventDecorator(Collection<CalendarDay> dateArray) throws ParseException {
-        highlightDrawable = new DotSpan(5, R.color.fui_bgGoogle);
+    public EventDecorator(Collection<CalendarDay> dateArray) {
+        highlightDrawable = new DotSpan(5, R.color.colorAccent);
 //        String date = "2019-05-10T10:10:10Z";
 //        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        Date parseDate = format.parse(date);
