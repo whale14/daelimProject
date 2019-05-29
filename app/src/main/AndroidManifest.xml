@@ -13,6 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MoreInformationActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MyListActivity"></activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

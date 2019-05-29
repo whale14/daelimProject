@@ -5,9 +5,7 @@
     <item
         android:id="@+id/menu1"
         android:title="MyFestival" />
-    <item
-        android:id="@+id/menu2"
-        android:title="내 리뷰" />
+
     <item
         android:id="@+id/menu_logout"
         android:title="로그아웃"/>

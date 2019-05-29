@@ -174,11 +174,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.menu1:
-                Snackbar.make(toolbar_main,"1번",Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(toolbar_main,"1번",Snackbar.LENGTH_SHORT).show();
+//                Intent intent = new Intent(this, MyListActivity.class);
+//                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), MyListActivity.class));
                 break;
-            case R.id.menu2:
-                Snackbar.make(toolbar_main,"2번",Snackbar.LENGTH_SHORT).show();
-                break;
+//            case R.id.menu2:
+//                Snackbar.make(toolbar_main,"2번",Snackbar.LENGTH_SHORT).show();
+//                break;
             case R.id.menu_logout:
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
