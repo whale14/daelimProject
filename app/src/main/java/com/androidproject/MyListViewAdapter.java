@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyListViewAdapter  extends BaseAdapter {
 
@@ -67,7 +68,7 @@ public class MyListViewAdapter  extends BaseAdapter {
         return listViewItemList.get(position) ;
     }
 
-    // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
+    // 아이템 데이터 추가를 위한 함수.
     public void addItem(Drawable img, String title, String day) {
         MyListView myListItem = new MyListView();
 
@@ -76,6 +77,13 @@ public class MyListViewAdapter  extends BaseAdapter {
         myListItem.setDesc(day);
 
         listViewItemList.add(myListItem);
+
+    }
+
+    public void setItems(List<MyListView> items) {
+        listViewItemList.clear();
+        listViewItemList.addAll(items);
+        notifyDataSetChanged();
     }
 
 }

@@ -3,12 +3,23 @@ package com.androidproject;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class MyListActivity extends AppCompatActivity {
 
@@ -18,7 +29,7 @@ public class MyListActivity extends AppCompatActivity {
         setContentView(R.layout.my_custom_list);
 
         ListView listview ;
-        MyListViewAdapter adapter;
+        final MyListViewAdapter adapter;
 
         // Adapter 생성
         adapter = new MyListViewAdapter() ;
@@ -27,16 +38,39 @@ public class MyListActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.mylist);
         listview.setAdapter(adapter);
 
-        // sample Test list
-        // 첫 번째 아이템 추가.
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.intro),
-                "첫번째", "첫번째 테스트") ;
-        // 두 번째 아이템 추가.
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.no_image),
-                "두번째", "두번째 테스트") ;
-        // 세 번째 아이템 추가.
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.sample),
-                "세번째", "세번째 테스트") ;
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Query query = FirebaseFirestore.getInstance()
+                .collection(user.getUid());
+
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Toast.makeText(getApplicationContext(), "오류 발생", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                // Convert query snapshot to a list of chats
+                List<MyListView> festivals = snapshot.toObjects(MyListView.class);
+
+                // Update UI
+                // ...
+                adapter.setItems(festivals);
+            }
+        });
+
+//        // sample Test list
+//        // 첫 번째 아이템 추가.
+//        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.intro),
+//                "첫번째", "첫번째 테스트") ;
+//        // 두 번째 아이템 추가.
+//        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.no_image),
+//                "두번째", "두번째 테스트") ;
+//        // 세 번째 아이템 추가.
+//        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.sample),
+//                "세번째", "세번째 테스트") ;
 
         // item은 firestore에서 가졍
 
