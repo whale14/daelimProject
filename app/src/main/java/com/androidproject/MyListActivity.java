@@ -43,6 +43,7 @@ public class MyListActivity extends AppCompatActivity {
         Query query = FirebaseFirestore.getInstance()
                 .collection(user.getUid());
 
+        // firestore에서 가져오는 부분
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshot,

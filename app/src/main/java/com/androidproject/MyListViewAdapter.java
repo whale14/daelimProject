@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidproject.apidata.Item;
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +71,8 @@ public class MyListViewAdapter  extends BaseAdapter {
         return listViewItemList.get(position) ;
     }
 
+    Item item;
+
     // 아이템 데이터 추가를 위한 함수.
     public void addItem(Drawable img, String title, String day) {
         MyListView myListItem = new MyListView();
@@ -75,6 +80,13 @@ public class MyListViewAdapter  extends BaseAdapter {
         myListItem.setIcon(img);
         myListItem.setTitle(title);
         myListItem.setDesc(day);
+
+//          이거 아님 일단 버려버려 (adapter class에서 가져온거다)
+//        if (item.getFirstimage() != null) {
+//            Glide.with(viewHolder.itemView).load(item.getFirstimage()).into(viewHolder.thumbnail);
+//            viewHolder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        }
+
 
         listViewItemList.add(myListItem);
 
