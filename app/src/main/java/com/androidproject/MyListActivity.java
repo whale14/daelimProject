@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,8 +21,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MyListActivity extends AppCompatActivity {
+
+    private Toolbar toolbar_mylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,12 @@ public class MyListActivity extends AppCompatActivity {
         // 리스트뷰 참조 및 Adapter달기
         listview = (ListView) findViewById(R.id.mylist);
         listview.setAdapter(adapter);
+
+        //툴바(상단바)
+        toolbar_mylist = findViewById(R.id.toolbar_mylist);
+        setSupportActionBar(toolbar_mylist);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black);
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
