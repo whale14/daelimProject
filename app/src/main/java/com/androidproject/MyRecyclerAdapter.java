@@ -85,6 +85,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 Log.d("tada", "onClick: more_button" + item.getTitle());
                 Intent intent = new Intent(view.getContext(), MoreInformationActivity.class);
                 intent.putExtra("title", item.getTitle());
+                intent.putExtra("image1", item.getFirstimage());
+                intent.putExtra("image2", item.getFirstimage2());
+                intent.putExtra("start",item.getEventstartdate());
+                intent.putExtra("end",item.getEventenddate());
+                intent.putExtra("addr",item.getAddr1());
+                intent.putExtra("tell",item.getTel());
                 view.getContext().startActivity(intent);
             }
         });
