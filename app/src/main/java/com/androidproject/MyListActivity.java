@@ -25,7 +25,6 @@ import java.util.Objects;
 
 public class MyListActivity extends AppCompatActivity {
 
-    private Toolbar toolbar_mylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +41,7 @@ public class MyListActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.mylist);
         listview.setAdapter(adapter);
 
-        //툴바(상단바)
-        toolbar_mylist = findViewById(R.id.toolbar_mylist);
-        setSupportActionBar(toolbar_mylist);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black);
+
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -64,7 +59,8 @@ public class MyListActivity extends AppCompatActivity {
                 }
 
                 // Convert query snapshot to a list of chats
-                List<MyListView> festivals = snapshot.toObjects(MyListView.class);
+                List<FireStoreModel> festivals = snapshot.toObjects(FireStoreModel.class);
+
 
                 // Update UI
                 // ...
@@ -89,13 +85,14 @@ public class MyListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // get item
-                MyListView myListItem = (MyListView) parent.getItemAtPosition(position) ;
+                FireStoreModel myListItem = (FireStoreModel) parent.getItemAtPosition(position) ;
 
                 String myTitle = myListItem.getTitle() ;
-                String myDay = myListItem.getDesc() ;
-                Drawable myImg = myListItem.getIcon() ;
+                String myDayString = String.valueOf(myListItem.getStart());
+                String myDayEnd = String.valueOf(myListItem.getEnd());
+//                Drawable myImg = myListItem.getIcon() ;
 
-                Toast.makeText(getApplicationContext(), myTitle + "클릭", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), myTitle + " 클릭", Toast.LENGTH_LONG).show();
                 // 클릭한 객체의 more page로 이동하도록 구현하기
             }
         }) ;
