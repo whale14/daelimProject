@@ -6,211 +6,102 @@
     android:layout_height="match_parent"
     tools:context=".MoreInformationActivity">
 
-    <ViewFlipper
-        android:id="@+id/vf"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ViewFlipper>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="261dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="500dp"
-        android:layout_height="0.7dp"
-        android:layout_centerInParent="true"
-        android:layout_marginEnd="10dp"
-        android:background="#5F5F5F"
-        app:layout_constraintBottom_toTopOf="@+id/title_more"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vf"
-        app:layout_constraintVertical_bias="0.823" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="500dp"
-        android:layout_height="0.7dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="8dp"
-        android:background="#5F5F5F"
-        app:layout_constraintTop_toBottomOf="@+id/title_more"
-        tools:layout_editor_absoluteX="-61dp" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="500dp"
-        android:layout_height="0.7dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-
-        android:background="#5F5F5F"
-        app:layout_constraintTop_toBottomOf="@+id/homepage_more"
-        tools:layout_editor_absoluteX="-60dp" />
-
-    <View
-        android:layout_width="500dp"
-        android:layout_height="2dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="#5F5F5F"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/vf"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-62dp" />
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="500dp"
-        android:layout_height="2dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:background="#5F5F5F"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
-        tools:layout_editor_absoluteX="-76dp" />
+        android:layout_height="250dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/title_more"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:background="#66000000"
         android:text="title"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vf" />
-
+        app:layout_constraintBottom_toBottomOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/start_more"
-        android:layout_width="68dp"
-        android:layout_height="18dp"
+        android:id="@+id/date_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="18dp"
-        android:text="start"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_more" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="20dp"
-        android:layout_height="19dp"
+        android:id="@+id/tel_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="18dp"
-        android:text=" ~ "
-        app:layout_constraintStart_toEndOf="@+id/start_more"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="tel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_more" />
 
     <TextView
-        android:id="@+id/end_more"
-        android:layout_width="200dp"
+        android:id="@+id/addr_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="addr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tel_more" />
+
+    <TextView
+        android:id="@+id/home_page_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="homepage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addr_more" />
+
+    <TextView
+        android:id="@+id/detail_more"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="end"
+        android:text="개요"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-    <TextView
-        android:id="@+id/tell_more"
-        android:layout_width="63dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="264dp"
-        android:text="tell"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="주소 : "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@id/home_page_more" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:text="날짜 : "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="전화번호 : "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/address_more"
-        android:layout_width="wrap_content"
+        android:id="@+id/overview_more"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="address"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="홈페이지 : "
+        android:layout_marginEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="overview"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/homepage_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:text="homepage"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_more"
+        android:background="@drawable/border"/>
 
 
 </android.support.constraint.ConstraintLayout>

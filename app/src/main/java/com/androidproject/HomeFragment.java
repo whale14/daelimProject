@@ -16,7 +16,11 @@ import com.androidproject.apidata.Example;
 import com.androidproject.apidata.Item;
 import com.androidproject.apidata.KoreanJsonService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -68,8 +72,14 @@ public class HomeFragment extends Fragment {
         final MyRecyclerAdapter adapter = new MyRecyclerAdapter(feedList);
         recyclerView.setAdapter(adapter);
 
-        service.listPosts("20190513",
-                "20190613",
+        long now = System.currentTimeMillis();
+
+        Date date = new Date(now);
+        Date date2 = new Date();
+        String sdf = new SimpleDateFormat("yyyyMMdd").format(date2);
+
+        service.listPosts(sdf,
+                "20190731",
                 "",
                 "",
                 "A02",
@@ -79,7 +89,7 @@ public class HomeFragment extends Fragment {
                 "ETC",
                 "TourAPI3.0_Guide",
                 "A",
-                "12",
+                "100",
                 "1",
                 "json").enqueue(new Callback<Example>() {
             @Override
@@ -87,6 +97,18 @@ public class HomeFragment extends Fragment {
                 List<Item> posts = response.body().getResponse().getBody().getItems().getItem();
 
                 Log.d(TAG, "onResponse: " + posts);
+                Collections.sort(posts, new Comparator<Item>() {
+                    @Override
+                    public int compare(Item item, Item t1) {
+                        if (item.getEventenddate() > t1.getEventenddate()) {
+                            return 1;
+                        } else if (item.getEventenddate() < t1.getEventenddate()) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
 
                 if (posts != null) {
                     adapter.setItems(posts);
