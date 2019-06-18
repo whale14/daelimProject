@@ -21,6 +21,22 @@ public interface KoreanJsonService {
                             @Query("pageNo") String pageNo,
                             @Query("_type") String type);
 
+    @GET("/openapi/service/rest/KorService/areaBasedList")
+    Call<Example> listLocations(@Query("contentTypeId") String typeId,
+                                @Query("MobileApp") String mApp,
+                                @Query(value = "ServiceKey", encoded = true) String serviceKey,
+                                @Query("areaCode") String areaCode,
+                                @Query("sigunguCode") String sigunguCode,
+                                @Query("cat1") String cat1,
+                                @Query("cat2") String cat2,
+                                @Query("cat3") String cat3,
+                                @Query("listYN") String listYN,
+                                @Query("MobileOS") String mobileOS,
+                                @Query("arrange") String arrange,
+                                @Query("numOfRows") String numOfRows,
+                                @Query("pageNo") String pageNo,
+                                @Query("_type") String type);
+
     @GET("/openapi/service/rest/KorService/detailCommon")
     Call<com.androidproject.apidetails.Example> listDetails(@Query("contentTypeId") String typeId,
                                                             @Query("contentId") String contentId,

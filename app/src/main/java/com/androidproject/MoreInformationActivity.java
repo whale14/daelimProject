@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MoreInformationActivity extends AppCompatActivity {
 
-    TextView title, date, tel, addr, homePage, overview;
+    TextView title, tel, addr, homePage, overview;
     ImageView imageView;
 
     long start_num,end_num;
@@ -42,7 +42,6 @@ public class MoreInformationActivity extends AppCompatActivity {
 
         i = getIntent();
         title = findViewById(R.id.title_more);
-        date = findViewById(R.id.date_more);
         tel = findViewById(R.id.tel_more);
         addr = findViewById(R.id.addr_more);
         homePage = findViewById(R.id.home_page_more);
@@ -86,10 +85,7 @@ public class MoreInformationActivity extends AppCompatActivity {
                 title.setText(details.getTitle());
                 title.setTextColor(Color.WHITE);
 
-                long start = i.getLongExtra("start", 0);
-                long end = i.getLongExtra("end", 0);
 
-                date.setText("축제기간 : " + setDate(start, end));
                 tel.setText("전화번호 : " + details.getTel());
                 addr.setText("주소 : " + details.getAddr1());
 

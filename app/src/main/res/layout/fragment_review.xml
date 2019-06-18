@@ -6,8 +6,169 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ReviewFragment">
 
-    <com.naver.maps.map.MapView
-        android:id="@+id/map_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_seul_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="서울"/>
+
+                <Button
+                    android:id="@+id/btn_ic_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="인천"/>
+
+                <Button
+                    android:id="@+id/btn_dj_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="대전"/>
+
+                <Button
+                    android:id="@+id/btn_dg_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="대구"/>
+
+                <Button
+                    android:id="@+id/btn_gj_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="광주"/>
+
+                <Button
+                    android:id="@+id/btn_bs_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="부산"/>
+
+                <Button
+                    android:id="@+id/btn_us_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="울산"/>
+
+                <Button
+                    android:id="@+id/btn_sj_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="세종특별자치시"/>
+
+                <Button
+                    android:id="@+id/btn_gg_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="경기도"/>
+
+                <Button
+                    android:id="@+id/btn_gw_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="강원도"/>
+
+                <Button
+                    android:id="@+id/btn_cb_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="충청북도"/>
+
+                <Button
+                    android:id="@+id/btn_cn_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="충청남도"/>
+
+                <Button
+                    android:id="@+id/btn_gb_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="경상북도"/>
+
+                <Button
+                    android:id="@+id/btn_gn_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="경상남도"/>
+
+                <Button
+                    android:id="@+id/btn_jb_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="전라북도"/>
+
+                <Button
+                    android:id="@+id/btn_jn_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="전라남도"/>
+
+                <Button
+                    android:id="@+id/btn_jj_17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:text="제주도"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_location"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            tools:listitem="@layout/item_card_location">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
 </FrameLayout>

@@ -27,6 +27,43 @@ public class Item {
     private String tel;
     private String title;
     private String addr2;
+    private String zipcode;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "addr1='" + addr1 + '\'' +
+                ", areacode=" + areacode +
+                ", cat1='" + cat1 + '\'' +
+                ", cat2='" + cat2 + '\'' +
+                ", cat3='" + cat3 + '\'' +
+                ", contentid=" + contentid +
+                ", contenttypeid=" + contenttypeid +
+                ", createdtime=" + createdtime +
+                ", eventenddate=" + eventenddate +
+                ", eventstartdate=" + eventstartdate +
+                ", firstimage='" + firstimage + '\'' +
+                ", firstimage2='" + firstimage2 + '\'' +
+                ", mapx=" + mapx +
+                ", mapy=" + mapy +
+                ", mlevel=" + mlevel +
+                ", modifiedtime=" + modifiedtime +
+                ", readcount=" + readcount +
+                ", sigungucode=" + sigungucode +
+                ", tel='" + tel + '\'' +
+                ", title='" + title + '\'' +
+                ", addr2='" + addr2 + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                '}';
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
     public String getAddr1() {
         return addr1;
@@ -200,30 +237,4 @@ public class Item {
         this.addr2 = addr2;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "addr1='" + addr1 + '\'' +
-                ", areacode=" + areacode +
-                ", cat1='" + cat1 + '\'' +
-                ", cat2='" + cat2 + '\'' +
-                ", cat3='" + cat3 + '\'' +
-                ", contentid=" + contentid +
-                ", contenttypeid=" + contenttypeid +
-                ", createdtime=" + createdtime +
-                ", eventenddate=" + eventenddate +
-                ", eventstartdate=" + eventstartdate +
-                ", firstimage='" + firstimage + '\'' +
-                ", firstimage2='" + firstimage2 + '\'' +
-                ", mapx=" + mapx +
-                ", mapy=" + mapy +
-                ", mlevel=" + mlevel +
-                ", modifiedtime=" + modifiedtime +
-                ", readcount=" + readcount +
-                ", sigungucode=" + sigungucode +
-                ", tel='" + tel + '\'' +
-                ", title='" + title + '\'' +
-                ", addr2='" + addr2 + '\'' +
-                '}';
-    }
 }

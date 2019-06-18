@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onPageSelected(int i) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home);
-                    Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review);
+                    Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_my_location);
                     Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_person);
 
                     switch (i) {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home_black);
                             break;
                         case 1 :
-                            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review_black);
+                            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_my_location_black);
                             break;
                         case 2 :
                             Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_person_black);
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //탭레이아웃 아이콘적용
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_home_black);
-            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_rate_review);
+            Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_my_location);
             Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_person);
         }
     }

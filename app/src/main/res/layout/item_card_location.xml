@@ -15,49 +15,33 @@
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="150dp">
             <ImageView
-                android:id="@+id/img_recycler"
+                android:id="@+id/img_recycler_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/no_image"/>
 
-            <TextView
-                android:id="@+id/date_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:padding="8dp"
-                android:background="#66000000"/>
-
         </RelativeLayout>
         <TextView
-            android:id="@+id/title_text"
+            android:id="@+id/title_text_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:maxLines="1"
             android:text="Title"/>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/more_button"
+                android:id="@+id/more_button_location"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:text="More"/>
-
-            <Button
-                android:id="@+id/like_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="#00ffffff"
-                android:text="Like" />
 
         </LinearLayout>
 

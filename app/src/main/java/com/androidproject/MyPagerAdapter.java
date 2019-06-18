@@ -40,7 +40,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         ArrayList<String> mTitleData = new ArrayList<>();
         mTitleData.add("홈");
-        mTitleData.add("리뷰");
+        mTitleData.add("지역");
         mTitleData.add("마이페이지");
         return mTitleData.get(position);
     }

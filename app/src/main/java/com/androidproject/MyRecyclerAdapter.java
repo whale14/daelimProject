@@ -72,6 +72,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             viewHolder.like.setTextColor(Color.DKGRAY);
         }
 
+        viewHolder.date.setText(setDate(item.getEventstartdate(), item.getEventenddate()));
+        viewHolder.date.setTextColor(Color.WHITE);
+
         viewHolder.title.setText(item.getTitle());
         if (item.getFirstimage() != null) {
             Glide.with(viewHolder.itemView).load(item.getFirstimage()).into(viewHolder.thumbnail);
@@ -145,6 +148,26 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             }
         });
     }
+    private String setDate(long start, long end) {
+        String newDate = "";
+        String strDate = String.valueOf(start);
+        String endDate = String.valueOf(end);
+
+        int startYear = Integer.parseInt(strDate.substring(0, 4));
+        int startMonth = Integer.parseInt(strDate.substring(4, 6));
+        int startDay = Integer.parseInt(strDate.substring(6, 8));
+
+        int endYear = Integer.parseInt(endDate.substring(0, 4));
+        int endMonth = Integer.parseInt(endDate.substring(4, 6));
+        int endDay = Integer.parseInt(endDate.substring(6, 8));
+
+        strDate = startYear + "년 " + startMonth + "월 " + startDay + "일";
+        endDate = endYear + "년 " + endMonth + "월 " + endDay + "일";
+
+        newDate = strDate + " ~ " + endDate;
+
+        return newDate;
+    }
 
     public void setItems(List<Item> items) {
         mFeedList = items;
@@ -156,7 +179,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, contents;
+        TextView title, contents, date;
         ImageView thumbnail;
         Button more, like;
 
@@ -167,6 +190,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             thumbnail = itemView.findViewById(R.id.img_recycler);
             more = itemView.findViewById(R.id.more_button);
             like = itemView.findViewById(R.id.like_button);
+            date = itemView.findViewById(R.id.date_recycler);
         }
     }
 }
