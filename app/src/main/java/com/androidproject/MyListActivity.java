@@ -92,7 +92,8 @@ public class MyListActivity extends AppCompatActivity {
                 String myDayEnd = String.valueOf(myListItem.getEnd());
 //                Drawable myImg = myListItem.getIcon() ;
 
-                Toast.makeText(getApplicationContext(), myTitle + " 클릭", Toast.LENGTH_LONG).show();
+                // Test용 Toast
+                //Toast.makeText(getApplicationContext(), myTitle + " 클릭", Toast.LENGTH_LONG).show();
                 // 클릭한 객체의 more page로 이동하도록 구현하기
             }
         }) ;
